@@ -76,27 +76,24 @@
         </tr>
     </table>
     <script type="text/javascript">
-        function tableCounter()
-        {
+        function tableCounter() {
             let tablesNumber = document.getElementsByTagName("table");
-            for(let i = 0; i < tablesNumber.length; i++)
-            {
+            for (let i = 0; i < tablesNumber.length; i++) {
                 function tableConverter(table = document.getElementsByTagName("table")[i].tBodies[0]) {
                     let tableRowsCounter = table.rows.length;
-                    for ( let k = 1; k < tableRowsCounter; k++)
-                    {
+                    let tableArray = [];
+                    for (let k = 1; k < tableRowsCounter; k++) {
                         let tableSingleRow = table.rows[k];
-                        let tableArray = [];
                         let tableObject = {};
                         let headerCounter = document.getElementsByTagName('th').length;
                         let tableItemsCounter = tableSingleRow.getElementsByTagName('td').length;
-                        for(let j = 0; j < tableItemsCounter; j++){
+                        for (let j = 0; j < tableItemsCounter; j++) {
                             let tableTitle = document.getElementsByTagName('th')[j%headerCounter].innerHTML;
                             tableObject[tableTitle] = tableSingleRow.getElementsByTagName ( 'td' )[ j ].innerHTML;
                         }
                         tableArray.push(tableObject);
-                        console.log(tableObject);
                     }
+                    console.log(tableArray);
                 }
                 tableConverter();
             }
