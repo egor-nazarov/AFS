@@ -79,7 +79,8 @@
         function tableCounter() {
             let tablesNumber = document.getElementsByTagName("table");
             for (let i = 0; i < tablesNumber.length; i++) {
-                function tableConverter(table = document.getElementsByTagName("table")[i].tBodies[0]) {
+                function tableConverter() {
+                    let table = document.getElementsByTagName("table")[i].tBodies[0];
                     let tableRowsCounter = table.rows.length;
                     let tableArray = [];
                     for (let k = 1; k < tableRowsCounter; k++) {
@@ -88,12 +89,14 @@
                         let headerCounter = document.getElementsByTagName('th').length;
                         let tableItemsCounter = tableSingleRow.getElementsByTagName('td').length;
                         for (let j = 0; j < tableItemsCounter; j++) {
-                            let tableTitle = document.getElementsByTagName('th')[j%headerCounter].innerHTML;
+                            let tableTitle = document.getElementsByTagName('th')[j%headerCounter].innerHTML.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+                                return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
+                            }).replace(/\s+/g, '');
                             tableObject[tableTitle] = tableSingleRow.getElementsByTagName ( 'td' )[ j ].innerHTML;
                         }
                         tableArray.push(tableObject);
                     }
-                    console.log(tableArray);
+                    console.table(tableArray);
                 }
                 tableConverter();
             }

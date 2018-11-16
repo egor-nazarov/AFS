@@ -1,6 +1,7 @@
+const fs = require("fs");
+
 function fileConverter()
 {
-    const fs = require("fs");
     let inputFile = "example.txt";
     console.time("Время конвертации файла");
     fs.readFile(inputFile, "utf8", (err, data) => {
