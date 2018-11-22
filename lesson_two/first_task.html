@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function operationsWithObject() {
+            const someData = [];
+            const arrayWherePeopleOver18 = [];
+            const arrayWherePeopleNameB = [];
+            const arrayOfStringifiedObjects = [];
+            const arrayOfPersonsScores = [];
+            const personNames = [ "AUSTIN", "STUART", "FREDRICK", "ARTURO", "ALEJANDRO", "JACKIE", "JOEY", "NICK", "LUTHER", "WENDELL", "JEREMIAH", "EVAN", "JULIUS", "DANA", "DONNIE", "OTIS", "SHANNON", "TREVOR", "OLIVER", "LUKE", "HOMER", "GERARD", "DOUG", "KENNY", "HUBERT", "ANGELO", "SHAUN", "LYLE", "MATT", "LYNN", "ALFONSO", "ORLANDO", "REX", "CARLTON", "ERNESTO", "CAMERON", "NEAL", "PABLO", "LORENZO", "OMAR", "WILBUR", "BLAKE", "GRANT", "HORACE", "RODERICK", "KERRY", "ABRAHAM", "WILLIS", "RICKEY", "JEAN", "IRA", "ANDRES", "CESAR", "JOHNATHAN", "MALCOLM", "RUDOLPH", "DAMON", "KELVIN", "RUDY", "PRESTON", "ALTON", "ARCHIE", "MARCO", "WM", "PETE", "RANDOLPH", "GARRY", "GEOFFREY", "JONATHON", "FELIPE", "BENNIE", "GERARDO", "ED", "DOMINIC", "ROBIN", "LOREN", "DELBERT", "COLIN", "GUILLERMO", "EARNEST", "LUCAS", "BENNY", "NOEL", "SPENCER", "RODOLFO", "MYRON", "EDMUND", "GARRETT", "SALVATORE", "CEDRIC", "LOWELL", "GREGG", "SHERMAN", "WILSON", "DEVIN", "SYLVESTER", "KIM", "OOSEVELT", "ISRAEL", "JERMAINE", "BREOCK", "BRER", "BRET", "BRETT", "BRETTLEY", "BRETTON", "BREVIN", "BREVYN", "BREWER", "BREWSTER", "BREXTON", "BREYER", "BREYSON", "BRIAC", "BRIAN", "BRICE", "BRICEN", "BRICK", "BRIDGE", "BRIDGER", "BRIDH", "BRIEK", "BRIEN", "BRIER", "BRIGG", "BRIGGS", "BRIGHAM", "BRIGHTON", "BRILEY", "BRINDEN", "BRINDLEY"];
+            const numberOfElements = 10;
+            let amountOfScore = 0;
+
+            for (let i = 0; someData.length < numberOfElements; i++) {
+                let randomScoreNumber = Math.floor(Math.random() * 100);
+                someData.push({ score: randomScoreNumber, name: randomElement(personNames), age: randomAgeNumber(12, 30) });
+                arrayOfStringifiedObjects.push({
+                    personName: someData[i].name,
+                    personAge: someData[i].age,
+                    personScore: someData[i].score,
+                    toString: function() {
+                        return this.personName + " - " + this.personAge + ": " + this.personScore;
+                    }
+                });
+                arrayOfPersonsScores.push({
+                    personScore: someData[i].score,
+                    personAge: someData[i].age,
+                });
+            }
+
+            for (let j = 0; j < someData.length; j++) {
+                // Сумма всех очков объекта
+                amountOfScore += someData[j].score;
+                if ( someData[j].age > 18 ) {
+                    // Массив с участниками старше 18
+                    arrayWherePeopleOver18.push(someData[j]);
+                }
+                if ( someData[j].name.charAt(0) === "B" ) {
+                    // Массив с участниками, имена которых начинаются на B
+                    arrayWherePeopleNameB.push(someData[j]);
+                }
+            }
+            console.log(someData);
+
+            console.log("Сумма всех очков:", amountOfScore);
+            console.log("Массив с участниками старше 18:", arrayWherePeopleOver18);
+            console.log("Массив с участниками, имена которых начинаются на B:", arrayWherePeopleNameB);
+            console.group("Задание под пунктом 'Г'");
+            console.log( arrayOfStringifiedObjects.toString().split(",").join(",\n"));
+            console.groupEnd();
+
+            console.group("Задание под пунктом 'Д'");
+            let groupedPeople = groupBy(arrayOfPersonsScores, "personAge");
+            console.log("Массив чисел:", groupedPeople);
+            console.groupEnd();
+        }
+
+        function randomAgeNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) ) + min;
+        }
+
+        function randomElement(list) {
+            let i = Math.floor(Math.random() * list.length);
+            return list[i];
+        }
+
+        function groupBy(inputArray, objectProperty) {
+            return inputArray.reduce(function (accumulator, object) {
+                let key = object[objectProperty];
+                if (!accumulator[key]) {
+                    accumulator[key] = [];
+                }
+                accumulator[key].push(object);
+                return accumulator;
+            }, {});
+        }
+
+        operationsWithObject();
+    </script>
+</body>
+</html>
