@@ -59,7 +59,29 @@
 
             console.group("Задание под пунктом 'Д'");
             let groupedPeople = groupBy(arrayOfPersonsScores, "personAge");
-            console.log("Массив чисел:", groupedPeople);
+            const arrayOfPeople = [];
+
+            for ( let k = 0; k < Object.entries(groupedPeople).length; k++) {
+                let singlePerson = Object.entries(groupedPeople)[k][1];
+                if ( singlePerson.length !== 1 ) {
+                    let scoreCheck = 0;
+                    for ( let l = 0; l < singlePerson.length; l++) {
+                        scoreCheck += singlePerson[l].personScore;
+                        Object.defineProperty(singlePerson[0], 'personScore', {
+                            value: scoreCheck,
+                        });
+                    }
+                }
+                arrayOfPeople.push(singlePerson[0]);
+            }
+            console.log("Массив чисел:", arrayOfPeople);
+            let something = Object.entries(arrayOfPeople);
+            console.group("Массив строк:");
+            for ( let l = 0; l < arrayOfPeople.length; l++) {
+                console.log("Для участников с возрастом: " + something[l][1].personAge + " сумма баллов равна: " +
+                    something[l][1].personScore);
+            }
+            console.groupEnd();
             console.groupEnd();
         }
 
