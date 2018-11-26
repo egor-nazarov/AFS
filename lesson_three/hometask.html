@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function firstExercise() {
+            const print1 = () => console.log('каждый');
+            const print2 = () => console.log('охотник');
+            const print3 = () => console.log('желает');
+            const print4 = () => console.log('знать');
+            const print5 = () => console.log('где');
+            const print6 = () => console.log('сидит');
+            const print7 = () => console.log('фазан');
+            const func1 = () => {
+                print3();
+            };
+            const func2 = () => {
+                func1();
+                setTimeout(() => {
+                    print6();
+                }, 100);
+            };
+            const func3 = () => {
+                setTimeout(() => {
+                    func2();
+                    print4();
+                }, 25);
+
+                print2();
+            };
+            setTimeout(() => {
+                print5();
+
+                setTimeout(() => {
+                    print7();
+
+                }, 75);
+            }, 50);
+            print1();
+
+            func3();
+        }
+
+        function secondExercise() {
+            function figureFunction(sideA, sideB) {
+                this.sideA = sideA;
+                this.sideB = sideB;
+                this.measureValues = "см.";
+                this.shortInfo = function () {
+                    console.log("ширина: " + this.sideA + this.measureValues + ", высота: " + this.sideB + this.measureValues);
+                };
+                this.getArea = function () {
+                    console.log("Площадь фигуры с шириной: " + this.sideA + this.measureValues + " и высотой: " + this.sideB + this.measureValues + " равна: " + this.sideA * this.sideB);
+                };
+                this.getPerimetr = function () {
+                    console.log("Периметр фигуры с шириной: " + this.sideA + this.measureValues + " и высотой: " + this.sideB + this.measureValues + " равен: " + (this.sideA + this.sideB)*2);
+                }
+            }
+            let ourRectangle = new figureFunction(100, 100);
+
+            const newRectangleObject = {
+                sideA: 35,
+                sideB: 85,
+                measureValues: "мм.",
+                aboutInfo: function () {
+                    console.log(this);
+                }
+            };
+
+            ourRectangle.shortInfo();
+            ourRectangle.getArea();
+            ourRectangle.getPerimetr();
+            newRectangleObject.aboutInfo();
+            ourRectangle.getArea.call(newRectangleObject);
+            ourRectangle.getPerimetr.apply(newRectangleObject);
+        }
+
+        function thirdExercise() {
+
+            //реализовать функцию-конструктор копилки 
+            function Moneybox(value) {
+                this.transactionNumber = 1;
+                if ( this.transactionNumber < 10 ) {
+                    this.transactionNumber = "0" + this.transactionNumber;
+                    if ( this.transactionNumber < 100 ) {
+                        this.transactionNumber = "0" + this.transactionNumber;
+                    }
+                }
+                if ( value ) {
+                    this.amount = value;
+                } else {
+                    this.amount = 0;
+                }
+                this.transactions = ["200", "-100", "50"];
+            }
+
+            // реализовать получение информации о состоянии копилки 
+            function getMoneyboxInfo(anyMoneybox) {
+                console.log("***");
+                console.log("* Номер:", anyMoneybox.transactionNumber);
+                console.log("* На счету:", anyMoneybox.amount.toString());
+                console.log("* Транзакции:", anyMoneybox.transactions.toString().split(",").join(", "));
+                console.log("***");
+            }
+
+            // реализовать добавление в копилку
+            function addToMoneybox(anyMoneyBox, value) {
+                console.log("до добавления в копилку " + anyMoneyBox.__proto__.constructor.name + ":",anyMoneyBox.amount.toString());
+                anyMoneyBox.amount += value;
+                console.log("после добавления " + value.toString() + " единиц в копилку " + anyMoneyBox.__proto__.constructor.name +
+                ":",anyMoneyBox.amount.toString());
+                console.log("---");
+                // на этом этапе возникла сложность с вытягиванием имени переменной, которая вызывает функцию-конструктор
+                // я попытался использовать anyMoneyBox.__proto__.constructor.name, но получил только имя функции-конструктора, а не имя переменной
+                // это хотел использовать для красивого и структурированного вывода в консоль чтобы получилась такая строка: `до добавления в копилку moneybox1: 250`
+                // по факту получилось: `до добавления в копилку Moneybox: 250`
+                // ВОПРОС: реально ли это сделать как-нибудь?????
+            }
+
+            // реализовать изъятие из копилки
+            function takeFromMoneybox(anyMoneyBox, value) {
+                console.log("до изъятия из копилки " + anyMoneyBox.__proto__.constructor.name + ", " +
+                    value.toString() + " единиц, получилось:", anyMoneyBox.amount.toString());
+                anyMoneyBox.amount -= value;
+                console.log("после изъятия из копилки " + anyMoneyBox.__proto__.constructor.name + ", " +
+                    value.toString() + " единиц, получилось:", anyMoneyBox.amount.toString());
+                console.log("---");
+            }
+
+            const moneybox1 = new Moneybox(100);
+            const moneybox2 = new Moneybox;
+
+            console.group("реализовать функцию-конструктор копилки ");
+            console.log(moneybox2);
+            console.groupEnd();
+
+            console.group("реализовать получение информации о состоянии копилки ");
+            getMoneyboxInfo(moneybox1);
+            console.groupEnd();
+
+            console.group("реализовать добавление в копилку ");
+            addToMoneybox(moneybox1, 570);
+            console.groupEnd();
+
+            console.group("реализовать изъятие из копилки");
+            takeFromMoneybox(moneybox1, 420);
+            console.groupEnd();
+
+            // используя addToMoneybox и takeFromMoneybox определи следующие функции
+            function add100ToMoneybox1() {
+                addToMoneybox(moneybox1, 100);
+            }
+            function addToMoneybox2() {
+                addToMoneybox(moneybox2, 500);
+            }
+            function take250FromMoneybox2() {
+                takeFromMoneybox(moneybox2, 250);
+            }
+            function take10FromMoneybox1() {
+                takeFromMoneybox(moneybox1, 10);
+            }
+
+            console.group("используя addToMoneybox и takeFromMoneybox определи следующие функции ");
+            add100ToMoneybox1();    // добавит 100 в moneybox1 
+            addToMoneybox2(500);    // добавит 500 в moneybox2 
+            take250FromMoneybox2(); // изымает 250 из moneybox2 
+            take10FromMoneybox1();  // изымает 10 из moneybox1  
+            console.groupEnd();
+
+            // используя getMoneyboxInfo определи следующие переменные
+            console.group("используя getMoneyboxInfo определи следующие переменные ");
+            console.log(getMoneyboxInfo.bind(moneybox1));
+            console.log(getMoneyboxInfo.bind(moneybox2));
+            getMoneyboxInfo(moneybox1);
+            getMoneyboxInfo(moneybox2);
+            console.groupEnd();
+            // Остался вопрос что нужно было сделать в последнем пункте: используя getMoneyboxInfo определи следующие переменные
+        }
+
+        firstExercise();
+        setTimeout(() => {
+            console.group("Задание №2");
+            secondExercise();
+            console.groupEnd();
+            console.group("Задание №3");
+            thirdExercise();
+            console.groupEnd()
+        }, 500);
+    </script>
+</body>
+</html>
