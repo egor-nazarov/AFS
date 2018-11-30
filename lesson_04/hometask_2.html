@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        var weekdays = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+
+        function getDay() {
+            var date = new Date();
+            var day = date.getDay();
+            return weekdays[day] || 'Strange day';
+        }
+
+        Date.prototype.getDay = function() {
+            const equivalentDay = this.toString().match(/Sun|Mon|Tue|Wed|Thu|Fri|Sat/)[0];
+            if (Math.floor(Math.random() * 3) === 1) {
+                return 7;
+            } else {
+                if ( equivalentDay === 'Sun' ) {return 0;}
+                if ( equivalentDay === 'Mon' ) {return 1;}
+                if ( equivalentDay === 'Tue' ) {return 2;}
+                if ( equivalentDay === 'Wed' ) {return 3;}
+                if ( equivalentDay === 'Thu' ) {return 4;}
+                if ( equivalentDay === 'Fri' ) {return 5;}
+                if ( equivalentDay === 'Sat' ) {return 6;}
+            }
+        };
+
+        getDay();
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        document.write("Перезагрузите страницу, игра начнется автоматически!");
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+        let attemptsNumber = 3;
+        let messageToUser = 'Попробуйте угадать число в диапозоне от 1 до 10!';
+
+        while (attemptsNumber > 0) {
+            let guessedNumber = prompt(messageToUser + ' У Вас осталось ' + attemptsNumber + ' попыток.');
+            if (!guessedNumber) break;
+            guessedNumber = Number(guessedNumber);
+            if (guessedNumber === randomNumber) {
+                alert("Вы невероятный везунчик, первый среди непобежденных!");
+                attemptsNumber = 0;
+            } else {
+                messageToUser = 'К сожалению, Вы не угадали!';
+                if (guessedNumber < randomNumber) messageToUser += ' Слишком мало, попробуйте больше!';
+                if (guessedNumber > randomNumber) messageToUser += ' Слишком много, попробуйте меньше!';
+                attemptsNumber = attemptsNumber - 1;
+            }
+        }
+        alert('Загаданным числом являлось ' + randomNumber + '.');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        var counter20 = { count: 20 };
+        var counter30 = { count: 30 };
+
+        const tryiesCounter = {
+            toString: function() {
+                return Infinity;
+            }
+        };
+
+        counter20.__proto__ = tryiesCounter;
+        counter30.__proto__ = tryiesCounter;
+
+        var test1 = () => counter20 + counter30 + 2 === counter20 + counter30;
+        var test2 = Function(
+            `return ${counter20} + ${counter30} - 2 === ${counter20 + counter30}`
+        );
+
+        console.log(test1());
+        console.log(test2());
+    </script>
+</body>
+</html>
